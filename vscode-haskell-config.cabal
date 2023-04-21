@@ -25,6 +25,8 @@ source-repository head
 
 library
   exposed-modules:
+      CollatzConjecture
+      DNA
       Lib
       WC
   other-modules:
