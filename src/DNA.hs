@@ -1,23 +1,17 @@
 module DNA (nucleotideCounts, Nucleotide(..)) where
--- module DNA (toRNA) where
-import Data.Map (Map)
-import qualified Data.Map as Map
+import Data.Map (Map, fromListWith)
+import Data.Either (lefts, rights)
 
-data Nucleotide = A | C | G | T deriving (Eq, Ord, Show)
+data Nucleotide = A | C | G | T deriving (Eq, Ord, Show, Read)
 
 nucleotideCounts :: String -> Either String (Map Nucleotide Int)
-nucleotideCounts xs = traverse countN
-    where
-        countN :: Char -> Either String (Map Nucleotide Int)
-        countN c = Right (Map.adjust (1 +) (pure mapN c) cmap)
-          where cmap = Map.fromList [(A, 0), (C, 0), (G, 0), (T, 0)]
+nucleotideCounts xs
+  | null $ lefts counts = Right $ fromListWith (+) $ rights counts
+  | otherwise = Left [ head $ lefts counts ]
+  where counts = countN xs
 
-
-
-mapN :: Char -> Either String Nucleotide
-mapN c
-  | c == 'A' = pure A
-  | c == 'C' = pure C
-  | c == 'G' = pure G
-  | c == 'T' = pure T
-  | otherwise = Left "error"
+countN :: String -> [Either Char (Nucleotide, Int)]
+countN [] = []
+countN (x:xs)
+  | x `elem` "ACGT" = Right (read [x], 1) : countN xs
+  | otherwise = [Left x]
