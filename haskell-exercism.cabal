@@ -25,9 +25,12 @@ source-repository head
 
 library
   exposed-modules:
+      Acronym
       CollatzConjecture
       DNA
+      Grains
       Lib
+      SumOfMultiples
   other-modules:
       Paths_haskell_exercism
   hs-source-dirs:
@@ -36,6 +39,7 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
+    , text
   default-language: Haskell2010
 
 executable haskell-exercism-exe
@@ -49,6 +53,7 @@ executable haskell-exercism-exe
       base >=4.7 && <5
     , containers
     , haskell-exercism
+    , text
   default-language: Haskell2010
 
 test-suite haskell-exercism-test
@@ -64,4 +69,5 @@ test-suite haskell-exercism-test
     , containers
     , haskell-exercism
     , hspec
+    , text
   default-language: Haskell2010
