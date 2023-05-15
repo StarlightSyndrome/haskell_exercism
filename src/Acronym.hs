@@ -17,3 +17,7 @@ windowed s lst@(_ : xs)
   | length lst == s = [lst]
   | otherwise = take s lst : windowed s xs
 windowed _ _ = []
+
+windowed' :: Int -> [Char] -> [[Char]]
+windowed' 2 s = tail $ zipWith (\a b -> [a, b]) (head s : s) s
+windowed' n' s = let n = n' - 1 in tail $ zipWith (:) (head s : s) $ windowed' n s
