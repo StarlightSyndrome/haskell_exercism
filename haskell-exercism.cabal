@@ -26,11 +26,13 @@ source-repository head
 library
   exposed-modules:
       Acronym
+      Anagrams
       BubbleSort
       CollatzConjecture
       DNA
       Grains
       Lib
+      Strain
       SumOfMultiples
   other-modules:
       Paths_haskell_exercism
