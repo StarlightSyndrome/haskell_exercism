@@ -1,7 +1,9 @@
 module BubbleSort (bubbleSort) where
 
+import Data.List(foldl')
+
 bubbleSort :: (Ord a) => [a] -> [a]
-bubbleSort xs = foldl (\x _ -> bSort x) xs xs
+bubbleSort xs = foldl' (\x _ -> bSort x) xs xs
   where
     bSort [] = []
     bSort [k] = [k]
