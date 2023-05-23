@@ -25,15 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      Acronym
-      Anagram
-      BubbleSort
-      CollatzConjecture
-      DNA
-      Grains
       Lib
-      Strain
-      SumOfMultiples
+      Luhn
   other-modules:
       Paths_haskell_exercism
   hs-source-dirs:
@@ -42,8 +35,7 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
-    , multiset
-    , text
+    , split
   default-language: Haskell2010
 
 executable haskell-exercism-exe
@@ -57,8 +49,7 @@ executable haskell-exercism-exe
       base >=4.7 && <5
     , containers
     , haskell-exercism
-    , multiset
-    , text
+    , split
   default-language: Haskell2010
 
 test-suite haskell-exercism-test
@@ -74,6 +65,5 @@ test-suite haskell-exercism-test
     , containers
     , haskell-exercism
     , hspec
-    , multiset
-    , text
+    , split
   default-language: Haskell2010

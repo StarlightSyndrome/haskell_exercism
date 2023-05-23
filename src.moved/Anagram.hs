@@ -2,7 +2,7 @@ module Anagram (anagramsFor) where
 
 import Data.Char(toLower)
 import qualified Data.Text as T
-import qualified Data.MultiSet as MS
+import qualified Data.Map as M
 
 
 anagramsFor :: T.Text -> [  T.Text] -> [T.Text]
@@ -10,7 +10,8 @@ anagramsFor xs = filter sameChars
     where
     lowerC = map toLower . T.unpack
     lowerCa = lowerC xs
-    sameChars b = (lowerCa /= lowerC b) && MS.fromList lowerCa == MS.fromList (lowerC b)
+    makeMap = M.fromListWith (+) . map (,1)
+    sameChars b = (lowerCa /= lowerC b) && makeMap lowerCa == makeMap (lowerC b)
 
 {-    where
         alower = map toLower xs
