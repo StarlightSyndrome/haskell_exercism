@@ -1,24 +1,13 @@
 module Luhn (isValid) where
-import Data.Char(isNumber, isSpace, digitToInt)
-import Data.List(unfoldr)
+import Data.Char(isSpace, digitToInt)
 
 isValid :: String -> Bool
-isValid xs = processed `mod` 10 == 0
+isValid n = case filter (not . isSpace) n of
+    [] -> False
+    [_] -> False
+    x -> checksum x `mod` 10 == 0
     where
-    trimmed = checkAndStrip xs
-    padded = if odd (length trimmed) then tail trimmed else trimmed
-    pairs = takeWhile (not . null) $ unfoldr (Just . splitAt 2) padded
-    doubleLuhn i = if i2 > 9 then i2 - 9 else i2
-        where i2 = i * 2
-    processed = foldl (\x [a,b] -> x + doubleLuhn (digitToInt a) + digitToInt b) 0 pairs 
-    
-
-
-checkAndStrip :: String -> String
-checkAndStrip xs
-    | length xs < 2 = errmsg
-    | all isNumber cleaned = cleaned
-    | otherwise = errmsg
-    where 
-        cleaned = filter (not . isSpace) xs
-        errmsg = error "Not a valid input"
+        checksum = luhn . map digitToInt . reverse
+        luhn [] = 0
+        luhn [x1] = x1
+        luhn (x1:x2:xs) = x1 + 2 * x2 - (if x2 > 5 then 9 else 0) + luhn xs  
