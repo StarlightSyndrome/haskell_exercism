@@ -26,7 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
-      Luhn
+      Prime
   other-modules:
       Paths_haskell_exercism
   hs-source-dirs:
