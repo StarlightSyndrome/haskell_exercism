@@ -6,9 +6,9 @@ nth :: Int -> Maybe Integer
 nth n 
     | n < 1 = Nothing
     | n == 1 = Just 2
-    | otherwise = Just $ last $ take n $ Set.toAscList $ primesTo m
+    | otherwise = Just $ last $ take (n-1) $ Set.toAscList $ primesTo m
     where
-        m = log $fromInteger n
+        m = ceiling $ 1.1 * fromIntegral (n * ceiling (log $ fromIntegral n))
 
 
 primesTo m = 
