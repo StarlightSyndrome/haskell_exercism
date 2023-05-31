@@ -1,19 +1,15 @@
 module Prime (nth) where
-import Data.Char (digitToInt)
-
+import Data.Set (Set)
+import qualified Data.Set as Set
 
 nth :: Int -> Maybe Integer
 nth n 
     | n < 1 = Nothing
     | n == 1 = Just 2
-    | otherwise = Just (last $ take (n-1) $ primL [3,5..])
-    where 
-        primL [x] = [x]
-        primL (x:xs) = x : filter (\y -> y < x*x || y `mod` x /= 0) (primL xs) 
--- primes' (x:xs) = x : filter (\y -> y `mod` x /= 0) (primes' xs) 
+    | otherwise = Just $ last $ take n $ Set.toAscList $ primesTo m
+    where
+        m = log $fromInteger n
 
 
-{-primes n = 
-    let testPrime y z = z > floor  (sqrt $ fromIntegral y) || y `mod` z /= 0 
-    in  reverse $ foldl (\ax b -> if all (testPrime b) ax then b:ax else ax ) [7,5,3] (take n [11,13..])
--}
+primesTo m = 
+    foldl (\as b -> if b `Set.member` as then Set.difference as (Set.fromDistinctAscList [b*2,b*3..m]) else as) (Set.fromDistinctAscList [3,5..m]) [3,5..m] 
